@@ -2,7 +2,7 @@
 
 This is the mini project assessment of Earth & Environmental Science class.
 
-## Requirement (DDL: 29$^{th}$ April)
+## Requirement (DDL: 29 April)
 
 You should return a 1000 word report on your approach and results, providing suitable figures and data visualisation. You may use any coding language or software you prefer but your code should be supplied in an executable format.
 
