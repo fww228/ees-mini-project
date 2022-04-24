@@ -6,7 +6,7 @@
 
 % Set page size and margins
 % Replace `letterpaper' with `a4paper' for UK/EU standard size
-\usepackage[a4paper,top=3cm,bottom=3.5cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[a4paper,top=2.3cm,bottom=3cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
 
 % Useful packages
 \usepackage{amsmath}
@@ -20,71 +20,85 @@
 \begin{document}
 \maketitle
 
-\ 
+\
+
 
 \section{Introduction}
 
 \subsection{Description of the project}
 
-In this project, some weather data from 1901 to 2019 were provided to predict the average daily temperature in 2020.
+In this project, the daily temperature data from 1901 to 2019 is provided to predict the average daily temperature in 2020.
 
-There are many ways to complete this project, but here I have chosen to use \verb|prophet|, an open source Python package from Facebook, which is a temporal prediction package that helps us to deal with time-related problems easily.
+There are many ways to complete this project, and here I choose to use \verb|prophet|, an open source Python package from Facebook, which is a time series forecasting package that helps us to tackle time-related problems easily.
 
+\
 
 \subsection{Description of the dataset}
 
-Analysis of the dataset shows that it has a total of 43,464 sample data, with 8 features per sample and no missing values. The eight of these features are:
+By the analysis of the dataset we can see that it has a total of 43,464 samples, 8 features per sample and no missing values, as shown below in Figure 1.
+
+\begin{figure}[hp]
+\centering
+\includegraphics[width=12cm]{datadesc.png} %[图片大小]{图片路径}
+\caption{First 5 samples in the dataset} %图片标题
+\end{figure}
+
+Where, the eight features represent:
 
 \begin{itemize}
 \item \verb|Year|, \verb|Month|, \verb|Day| and \verb|Date| describe the specific date of the temperature data;
 \item \verb|PPT. | describes the daily rainfall;
-\item \verb|Tmax| describes the daily maximum temperature;
-\item \verb|Tmin| describes the daily minimum temperature;
+\item \verb|Tmax| and \verb|Tmin| describe the daily maximum and minimum temperature;
 \item \verb|Av temp| describes the daily average temperature, which is also the target.
 \end{itemize}
 
-\ 
+\newpage
 
-\section{Processing \& Results}
+\section{Process \& Results}
 
 \subsection{Data preprocessing}
 
-According to the question, we need to predict the daily average temperature in 2020, so feature \verb|Date|, \verb|Tmax| and \verb|Tmin| from previous years are not important to us, thus, they are discarded.
+According to the question, we need to predict the daily average temperature in 2020, so features \verb|Date|, \verb|Tmax| and \verb|Tmin| from previous years are not important to us, thus, they are discarded.
 
-The relationship between daily rainfall and average daily temperature over the previous 10 years shows that they are not relevant, so the \verb|PPT. | feature is deleted directly.
+The relationship between daily rainfall and average daily temperature over the first 10 years is shown in Figure 2, from what we can see that there is no relationship between them, so the feature \verb|PPT.| is deleted directly.
 
-\ 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=5cm]{rela.png} %[图片大小]{图片路径}
+\caption{Relationship between daily rainfall and average daily temperature} %图片标题
+\end{figure}
+
 
 \subsection{Prediction \& results}
 
-In this project, forecast is made using the Prophet model from the prophet package. Visualisation of the predicted data gives all the average daily temperature data from 1901 to 2020 as shown in Figure 1. The average daily data for 2020 required by the project is shown in Figure 2.
+At the end of preprocessing, the forecast begins. In this project, forecast is made using the Prophet model from the prophet package. Figure 3 is the visualisation of all the average daily temperature data from 1901 to 2020.
 
-\ 
-
-\begin{figure}[p]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=16.5cm]{wholeyears.png} %[图片大小]{图片路径}
-\caption{Temperature of 1901-2020} %图片标题
+\includegraphics[width=13cm]{wholeyears.png} %[图片大小]{图片路径}
+\caption{All temperature data from 1901 to 2020} %图片标题
 \end{figure}
 
-\begin{figure}[p]
+The average daily temperature for 2020 required in this project is shown in Figure 4.
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=16cm]{year2020.png} %[图片大小]{图片路径}
-\caption{Predicted temperature of 2020} %图片标题
+\includegraphics[width=13cm]{year2020.png} %[图片大小]{图片路径}
+\caption{Predicted average daily temperature of 2020} %图片标题
 \end{figure}
 
 
-At the same time, the data obtained can be further extracted to obtain the trend of the average annual temperature as shown in Figure 3. From the graph we can easily see that the average annual temperature is gradually increasing over the last 120 years, which reflects the current global warming problem.
+Meanwhile, from Figure 3 we can see that there is an increasing trend in the average annual temperatures from 1901 to 2020, so the average annual temperatures are plotted separately, as shown in Figure 5. From the graph we can easily see that the average annual temperatures have increased by 1.5 degrees centigrade over the past 120 years, which reflects the current global warming problem.
 
-\begin{figure}[hp]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=15cm]{trend.png} %[图片大小]{图片路径}
-\caption{Trend of average annual temperature} %图片标题
+\caption{The trend of average annual temperatures} %图片标题
 \end{figure}
 
-\ 
 
-When we perform error calculations on the forecast data, we can see that the RMSE of the prediction is maintained at a low level as shown in Figure 4.
+\subsection{Error analysis}
+
+When I perform the error analysis on the forecasting data, we can see that the RMSE of the prediction is maintained at a low level as shown in Figure 6, which is acceptable in this project.
 
 \begin{figure}[h]
 \centering
@@ -99,37 +113,49 @@ When we perform error calculations on the forecast data, we can see that the RMS
 
 \section{Discussion}
 
-\subsection{Why I chose prophet}
+\subsection{Reasons of choosing prophet}
 
-prophet is an open source time series data prediction tool developed by facebook, which is based on time and variable values combined with time series decomposition and machine learning. Its powerful prediction ability can solve most of the practical scenarios of the prediction of single values.
+Prophet is an open source time series data prediction tool developed by Facebook, which combines time series decomposition and machine learning. Its powerful performance can solve most actual scenarios of the time series prediction with high efficiency.
 
-The advantage of prophet as a time series tool over advanced machine learning algorithms is that it does not require a lot of feature engineering to obtain the future trends, seasonal factors and holiday factors. Also, prophet is suitable for data with clear intrinsic patterns and is able to predict future movements of time series almost fully automatically with high efficiency, which is very appropriate for the problem of predicting temperatures in this project.
+Prophet has several points that make me choose to use it for data prediction:
 
-For the convenience of statisticians and machine learning learners, prophet provides interfaces to both the R and Python languages. Meanwhile, prophet follows the application programming interface of the sklearn library. That is, we can create an instance of the Prophet class and then use \verb|fit| to fit the model and use \verb|predict| to perform prediction calculations. The prophet library itself also comes with parameters relating to seasonality and holidays, allowing for more accurate forecasting by season or separating holidays from weekdays, making it more user-friendly.
- 
-\ 
+1. It does not require much feature engineering to obtain the future trends and data.
 
-\subsection{What are the limitations of prophet}
+2. It allows almost fully automatic data prediction, which is very appropriate for the problem of predicting temperatures in this project. 
 
-Throughout the project, I found several prophet shortcomings:
+3. It provides the unification of the interface with the sklearn library, which means we can create an instance of the Prophet model and then use \verb|fit| to fit the model and use \verb|predict| to perform the prediction calculation, allowing us to learn and use it quickly.
 
-1. The iterative computing was slow and the project took more than 20 minutes to run on my PC.
+4. It has a wide range of applications. For example, it can be used to forecast the seasonal or holiday data by editing the related parameters.
 
-2. High requirements for data quality. Prophet will be somewhat delayed to the emergence of new turning points so it requires a large accumulation of data for forecasting, and generally these data volumes often take more than one year to accumulate so that they are suitable for long-term forecasting.
+5. It provides interfaces to both R and Python language for the convenience of statisticians and machine learning learners, making it more user-friendly.
 
-3. Prophet is not very suitable for time series that are not very cyclical or trendy. Emerging activities cannot be predicted if they are not supported by previous data.
-
-4. It cannot make use of more information, such as information about the merchandise, the shops, the promotions, etc., when forecasting the sales of the products.
+6. It is an open source project, so we can study its source code to learn how it is implemented and to adapt it to different environments when we need.
 
 \ 
 
-\subsection{What could I do differently with more time and resources}
+\subsection{Limitations of prophet}
 
-If time and resources permit, I will do the following to improve prediction accuracy:
+Throughout the project, I found several shortcomings of prophet:
 
-1. Predict the daily maximum and minimum temperatures separately and average the predicted values to see how they compare with the direct prediction of the average daily temperature.
+1. We need to take some time to familiarise ourselves with its interfaces before proceeding with the project.
 
-2. Use deep learning method such as LSTM to make predictions and compare the results.
+2. For the current version (v1.0) of prophet, the iterative computing process is somewhat slow. This project took more than 20 minutes to run on my PC (2GHz, Intel i5-1038NG7).
+
+3. High requirement for data quality. It requires a large amount of data accumulation to improve the prediction accuracy, therefore it is more suitable for long-term prediction.
+
+4. Prophet is not suitable for time series data that are not cyclical or with trends. Emerging activities cannot be predicted if they are not supported by previous data.
+
+5. It cannot make full use of information. For example, it will ignore some useful information about the merchandise, the shops, the promotions, etc., when forecasting the sales of the products if they are not time-related.
+
+\ 
+
+\subsection{Future work}
+
+If time and resources permit, I will do the following things to improve the prediction accuracy:
+
+1. Predict the daily maximum and minimum temperatures separately and average the predicted values to find the difference between the average data and the data obtained directly.
+
+2. Use other deep learning methods such as LSTM to make predictions and compare the results.
 
 \ 
 
@@ -138,7 +164,7 @@ If time and resources permit, I will do the following to improve prediction accu
 
 \section{Appendix}
 
-The next pages show the code and the results of the entire project. The executable \verb|ipynb| code file can be found on GitHub 
+The next pages show the code and results of the entire project. The executable \verb|ipynb| code file can be found on GitHub \href{https://github.com/fww228/ees-mini-project/blob/main/project.ipynb}{https://github.com/fww228/ees-mini-project/blob/main/project.ipynb}.
 
 
 \end{document}
